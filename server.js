@@ -1,3 +1,6 @@
+process.env.CORSANYWHERE_BYPASS_DEMO = "true"; // Отключаем демо-страницу
+process.env.CORSANYWHERE_ALLOW_ORIGIN = "*"; // Разрешаем все домены
+
 // Listen on a specific host via the HOST environment variable
 var host = process.env.HOST || '0.0.0.0';
 // Listen on a specific port via the PORT environment variable
