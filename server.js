@@ -1,5 +1,18 @@
-process.env.CORSANYWHERE_BYPASS_DEMO = "true"; // Отключаем демо-страницу
-process.env.CORSANYWHERE_ALLOW_ORIGIN = "*"; // Разрешаем все домены
+// Добавьте в самое начало:
+process.env.CORSANYWHERE_BYPASS_DEMO = "true";
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"; // Только для теста!
+
+const cors_proxy = require('./lib/cors-anywhere');
+cors_proxy.createServer({
+  requireHeader: [], // Отключаем обязательные заголовки
+  redirectSameOrigin: false,
+  httpProxyOptions: {
+    secure: false, // Разрешаем self-signed certificates
+    xfwd: true    // Добавляем X-Forwarded-* headers
+  }
+}).listen(process.env.PORT || 8080, () => {
+  console.log('CORS Anywhere запущен');
+});
 
 // Listen on a specific host via the HOST environment variable
 var host = process.env.HOST || '0.0.0.0';
